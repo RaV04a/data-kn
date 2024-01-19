@@ -73,7 +73,7 @@
                                 </div>
                               </td>
                               <td class="text-center">
-                                <?php if ($jabatan === "admin" || $jabatan === "supervisor") { ?>
+                                <?php if ($jabatan === "admin" && $k['status'] === 'Proses'  || $jabatan === "supervisor" && $k['status'] === 'Proses' ) { ?>
                                   <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-primary btn-square btn-sm" data-toggle="modal" data-target="#edit" data-no_transfer_slip="<?= $k['no_transfer_slip'] ?>" data-l-no_transfer_slip="<?= urlencode($k['no_transfer_slip']) ?>" data-tgl="<?= $tgl ?>" data-nama_operator="<?= $k['nama_operator'] ?>">
                                       <i class="feather icon-edit-2"></i>Edit
@@ -84,7 +84,8 @@
                                       <i class="feather icon-trash-2"></i>Delete
                                     </a>
                                   </div>
-                                <?php } ?>
+            
+                              <?php } ?>
                               </td>
                             </tr>
                           <?php } ?>
@@ -211,7 +212,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" id="simpan" class="btn btn-primary" onclick="if (! confirm('Apakah Anda Yakin Untuk Menimpan Data Ini? Tolong Untuk Di Check Kembali. Dan Jangan Lupa Untuk Menginputkan Barangnya')) { return false; }">Simpan</button>
+          <button type="submit" id="simpan" class="btn btn-primary" onclick="if (! confirm('Apakah Anda Yakin Untuk Menyimpan Data Ini? Tolong Untuk Di Check Kembali. Dan Jangan Lupa Untuk Menginputkan Barangnya')) { return false; }">Simpan</button>
         </div>
       </form>
     </div>

@@ -83,6 +83,16 @@
                                                                             <i class="feather icon-file"></i>Print
                                                                         </a>
                                                                     </div>
+                                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                                        <button type="button" class="btn btn-primary btn-square btn-sm" data-toggle="modal" data-target="#edit" data-id_pb="<?= $k['id_pb'] ?>" data-no_surat_jalan="<?= $k['no_surat_jalan'] ?>" data-no_batch="<?= $k['no_batch'] ?>" data-tgl="<?= $tgl ?>" data-id_barang="<?= $k['id_barang'] ?>" data-id_supplier="<?= $k['id_supplier'] ?>" data-op_gudang="<?= $k['op_gudang'] ?>" data-dok_pendukung="<?= $k['dok_pendukung'] ?>" data-qty_pack="<?= $k['qty_pack'] ?>" data-jenis_kemasan="<?= $k['jenis_kemasan'] ?>" data-jml_kemasan="<?= $k['jml_kemasan'] ?>" data-ditolak_kemasan="<?= $k['ditolak_kemasan'] ?>" data-tutup="<?= $k['tutup'] ?>" data-wadah="<?= $k['wadah'] ?>" data-label="<?= $k['label'] ?>" data-qty="<?= $k['qty'] ?>" data-diterima_qty="<?= $k['qty'] ?>" data-ditolak_qty="<?= $k['ditolak_qty'] ?>" data-exp="<?= $exp ?>" data-mfg="<?= $mfg ?>">
+                                                                            <i class="feather icon-edit-2"></i>Edit
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                                        <a href="<?= base_url() ?>gudang_bahanbaku/karantina/delete/<?= $k['id_pb'] ?>" class="btn btn-danger btn-square text-light btn-sm" onclick="if (! confirm('Apakah Anda Yakin?')) { return false; }">
+                                                                        <i class="feather icon-trash-2"></i>Delete
+                                                                        </a>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -315,189 +325,239 @@
     })
 </script>
 
-<!-- Modal -->
 <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Barang Masuk</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Barang Karantina</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="<?= base_url() ?>gudang_bahanbaku/barang_masuk/update">
-                <input type="hidden" id="e_id_barang_masuk" name="id_barang_masuk">
+            <form method="post" action="<?= base_url() ?>gudang_bahanbaku/Karantina/update">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="no_batch">No Batch</label>
-                                <input type="text" class="form-control" id="e_no_batch" name="no_batch" placeholder="No Batch" maxlength="20" autocomplete="off" required>
+                                <input type="hidden" id="e_id_pb" name="id_pb">
+                                <input type="text" class="form-control" id="e_no_batch" name="no_batch" placeholder="No Batch" maxlength="20" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="no_surat_jalan">No Surat Jalan</label>
-                                <input type="text" class="form-control" id="e_no_surat_jalan" name="no_surat_jalan" value="../XII/2022" maxlength="20" aria-describedby="validationServer03Feedback" autocomplete="off" required>
-                                <div id="validationServer03Feedback" class="invalid-feedback">
-                                    Maaf nomor transfer slip sudah ada.
-                                </div>
+                                <label for="no_surat_jalan">No. Po</label>
+                                <input type="text" class="form-control" id="e_no_surat_jalan" name="no_surat_jalan" maxlength="20" placeholder="No. Po" aria-describedby="validationServer03Feedback" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="tgl">Tanggal Masuk</label>
-                                <input type="text" class="form-control datepicker" id="e_tgl" name="tgl" placeholder="Tanggal Masuk" autocomplete="off" required>
+                                    <input type="text" class="form-control datepicker" id="e_tgl" name="tgl" placeholder="Tanggal Masuk" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="id_barang">Nama Barang</label>
-                                <input type="text" class="form-control" id="e_id_barang" name="id_barang" readonly>
+                                <label for="id_barang">Barang</label>
+                                    <select class="form-control chosen-select" id="e_id_barang" name="id_barang" required>
+                                        <option value="" disabled selected hidden>- Pilih Barang -</option>
+                                        <?php
+                                            foreach ($res_barang as $b) {
+                                            ?>
+                                            <option value="<?= $b['id_barang'] ?>">(<?= $b['kode_barang'] ?>) <?= $b['nama_barang'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="id_supplier">Nama Supllier</label>
-                                <input type="text" class="form-control" id="e_id_supplier" name="id_supplier" readonly>
+                                <label for="id_supplier">Supplier</label>
+                                    <select class="form-control chosen-select" id="e_id_supplier" name="id_supplier" required>
+                                        <option value="" disabled selected hidden>- Pilih Supplier -</option>
+                                            <?php
+                                            foreach ($res_supplier as $s) {
+                                            ?>
+                                        <option value="<?= $s['id_supplier'] ?>">(<?= $s['kode_supplier'] ?>) <?= $s['nama_supplier'] ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="nama_operator">Nama Operator</label>
-                                <input type="text" class="form-control" id="e_nama_operator" name="nama_operator" value="<?= $this->session->userdata('nama_operator') ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+              <div class="form-group">
+                <label for="op_gudang">OP Gudang</label>
+                <input type="text" class="form-control" id="e_op_gudang" name="op_gudang" value="<?= $this->session->userdata('op_gudang') ?>" placeholder="OP Gudang" readonly>
+              </div>
+            </div>
+            <div class="col-md-4">
                             <div class="form-group">
                                 <label for="dok_pendukung">Dokumen Pendukung</label>
-                                <input type="text" class="form-control" id="e_dok_pendukung" name="dok_pendukung[]" readonly>
+                                <input type="text" class="form-control" id="e_dok_pendukung" name="dok_pendukung" readonly>
                             </div>
                         </div>
-                        <div class="col-md-4">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="qty_pack">QTY Pack</label>
+                <input type="text" class="form-control" id="e_qty_pack" name="qty_pack" placeholder="QTY Pack" readonly>
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="jenis_kemasan">Jenis Kemasan</label>
+                <select class="form-control chosen-select" id="e_jenis_kemasan" name="jenis_kemasan" required>
+                  <option value="" disabled selected hidden>- Pilih Jenis Kemasan -</option>
+                  <option value="ZAK">ZAK</option>
+                  <option value="Metalize">Metalize</option>
+                  <option value="CAN">CAN</option>
+                  <option value="Drum">Drum</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="qty">Jumlah Bahan</label>
+                        <input type="text" class="form-control" id="e_qty" name="qty" placeholder="Jumlah Bahan" maxlength="15" readonly>
+                </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="jml_kemasan">Jumlah Kemasan</label>
+                <input type="text" class="form-control" id="e_jml_kemasan" name="jml_kemasan" placeholder="Jumlah Kemasan" onkeypress="return hanyaAngka(event)" maxlength="15" autocomplete="off" readonly>
+              </div>
+            </div>
+            <div class="col-md-12">
                             <div class="form-group">
-                                <label for="jenis_kemasan">Jenis Kemasan</label>
-                                <input type="text" class="form-control" id="e_jenis_kemasan" name="jenis_kemasan" readonly>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="jml_kemasan">Jumlah Kemasan</label>
-                                <input type="text" class="form-control" id="e_jml_kemasan" name="jml_kemasan" placeholder="Jumlah Kemasan" onkeypress="return hanyaAngka(event)" maxlength="15" autocomplete="off" required>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="qty">Jumlah Bahan</label>
-                                <input type="text" class="form-control" id="e_qty" name="qty" placeholder="Jumlah Kemasan" onkeypress="return hanyaAngka(event)" maxlength="15" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="exp">Exp Date</label>
-                                <input type="text" class="form-control datepicker" id="e_exp" name="exp" placeholder="Tanggal Kadaluarsa" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="mfg">Mfg. Date</label>
-                                <input type="text" class="form-control datepicker" id="e_mfg" name="mfg" placeholder="Tanggal Kadaluarsa" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <center><label for="pemeriksaan">Hasil Pemeriksaan Fisik Kemasan</label></center>
+                                <center><label for="pemeriksaan"><b>Hasil Pemeriksaan Fisik Kemasan</b></label></center>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-check-label">Tutup</label><br>
+                                            <label>Tutup</label>
                                             <input type="text" class="form-control" id="e_tutup" name="tutup" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-check-label">Wadah</label><br>
+                                            <label>Wadah</label>
                                             <input type="text" class="form-control" id="e_wadah" name="wadah" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-check-label">Label</label><br>
+                                            <label>Label</label>
                                             <input type="text" class="form-control" id="e_label" name="label" readonly>
+                                        </div>
+                                    </div>
+                                    <div id="hasil_kemasan" class="col-md-4 form-group">
+                                        <div>
+                                            <label class="">Hasil Kemasan</label>
+                                            <div>
+                                                <table id="hasil_kemasan">
+                                                    <tr>
+                                                        <td style="width: 5%;">Di Terima</td>
+                                                        <td style="width: 20%;"><input type="text" class="form-control form-control-sm w-25" id="e_diterima_kemasan" name="diterima_kemasan" readonly></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 5%;"><span class="">Di Tolak</span> </td>
+                                                        <td><input type="text" class="form-control form-control-sm w-25" id="e_ditolak_kemasan" name="ditolak_kemasan" readonly></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="hasil_bahan" class="col-md-4 form-group">
+                                        <div>
+                                            <label class="">Hasil Bahan</label>
+                                            <div>
+                                                <table id="hasil_bahan">
+                                                    <tr>
+                                                        <td style="width: 5%;">Di Terima</td>
+                                                        <td style="width: 20%;"><input type="text" class="form-control form-control-sm w-50" id="e_diterima_qty" name="diterima_qty" readonly></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 5%;"><span class="">Di Tolak</span> </td>
+                                                        <td style="width: 20%"><input type="text" class="form-control form-control-sm w-50" id="e_ditolak_qty" name="ditolak_qty" readonly></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" id="simpan" class="btn btn-primary" onclick="if (! confirm('Apakah Anda Yakin Untuk Menimpan Data Ini? Tolong Untuk Di Check Kembali. Dan Jangan Lupa Untuk Menginputkan Barangnya')) { return false; }">Simpan</button>
-                    </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="mfg">Mfg. Date</label>
+                <input type="text" class="form-control datepicker" id="e_mfg" name="mfg" placeholder="Tanggal Kadaluarsa" autocomplete="off" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exp">Exp Date</label>
+                <input type="text" class="form-control datepicker" id="e_exp" name="exp" placeholder="Tanggal Kadaluarsa" autocomplete="off" required>
+              </div>
+            </div>
+          </div>
+        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="simpan" class="btn btn-primary" onclick="if (! confirm('Apakah Anda Yakin Untuk Menyimpan Data Ini? Tolong Untuk Di Check Kembali. Dan Jangan Lupa Untuk Menginputkan Barangnya')) { return false; }">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#no_surat_jalan").keyup(function() {
-            var no_surat_jalan = $("#no_surat_jalan").val();
-            jQuery.ajax({
-                url: "<?= base_url() ?>barang_masuk/cek_surat_jalan",
-                dataType: 'text',
-                type: "post",
-                data: {
-                    no_surat_jalan: no_surat_jalan
-                },
-                success: function(response) {
-                    if (response == "true") {
-                        $("#no_surat_jalan").addClass("is-invalid");
-                        $("#simpan").attr("disabled", "disabled");
-                    } else {
-                        $("#no_surat_jalan").removeClass("is-invalid");
-                        $("#simpan").removeAttr("disabled");
-                    }
-                }
-            });
-        })
-    })
-
-    $(document).ready(function() {
         $('#edit').on('show.bs.modal', function(event) {
-            var id_barang_masuk = $(event.relatedTarget).data('id_barang_masuk')
+            var id_pb = $(event.relatedTarget).data('id_pb')
             var no_surat_jalan = $(event.relatedTarget).data('no_surat_jalan')
             var no_batch = $(event.relatedTarget).data('no_batch')
             var tgl = $(event.relatedTarget).data('tgl')
             var id_barang = $(event.relatedTarget).data('id_barang')
             var id_supplier = $(event.relatedTarget).data('id_supplier')
-            var nama_operator = $(event.relatedTarget).data('nama_operator')
+            var op_gudang = $(event.relatedTarget).data('op_gudang')
             var dok_pendukung = $(event.relatedTarget).data('dok_pendukung')
+            var qty_pack = $(event.relatedTarget).data('qty_pack')
             var jenis_kemasan = $(event.relatedTarget).data('jenis_kemasan')
             var jml_kemasan = $(event.relatedTarget).data('jml_kemasan')
+            var ditolak_kemasan = $(event.relatedTarget).data('ditolak_kemasan')
             var tutup = $(event.relatedTarget).data('tutup')
             var wadah = $(event.relatedTarget).data('wadah')
             var label = $(event.relatedTarget).data('label')
             var qty = $(event.relatedTarget).data('qty')
+            var diterima_qty = $(event.relatedTarget).data('qty')
+            var ditolak_qty = $(event.relatedTarget).data('ditolak_qty')
             var exp = $(event.relatedTarget).data('exp')
             var mfg = $(event.relatedTarget).data('mfg')
 
-            $(this).find('#e_id_barang_masuk').val(id_barang_masuk)
+            $(this).find('#e_id_pb').val(id_pb)
             $(this).find('#e_no_surat_jalan').val(no_surat_jalan)
             $(this).find('#e_no_batch').val(no_batch)
             $(this).find('#e_tgl').val(tgl)
             $(this).find('#e_id_barang').val(id_barang)
+            $(this).find('#e_id_barang').trigger("chosen:updated")
             $(this).find('#e_id_supplier').val(id_supplier)
-            $(this).find('#e_nama_operator').val(nama_operator)
+            $(this).find('#e_id_supplier').trigger("chosen:updated")
+            $(this).find('#e_op_gudang').val(op_gudang)
             $(this).find('#e_dok_pendukung').val(dok_pendukung)
+            $(this).find('#e_dok_pendukung').trigger("chosen:updated")
+            $(this).find('#e_qty_pack').val(qty_pack)
             $(this).find('#e_jenis_kemasan').val(jenis_kemasan)
+            $(this).find('#e_jenis_kemasan').trigger("chosen:updated")
             $(this).find('#e_jml_kemasan').val(jml_kemasan)
+            $(this).find('#e_diterima_kemasan').val(jml_kemasan)
+            $(this).find('#e_ditolak_kemasan').val(ditolak_kemasan)
             $(this).find('#e_tutup').val(tutup)
             $(this).find('#e_wadah').val(wadah)
             $(this).find('#e_label').val(label)
             $(this).find('#e_qty').val(qty)
+            $(this).find('#e_diterima_qty').val(diterima_qty)
+            $(this).find('#e_ditolak_qty').val(ditolak_qty)
             $(this).find('#e_exp').val(exp)
             $(this).find('#e_mfg').val(mfg)
             $(this).find('#e_tgl').datepicker().on('show.bs.modal', function(event) {
@@ -509,6 +569,7 @@
             $(this).find('#e_mfg').datepicker().on('show.bs.modal', function(event) {
                 event.stopImmediatePropagation();
             });
+            })
         })
-    })
+    
 </script>

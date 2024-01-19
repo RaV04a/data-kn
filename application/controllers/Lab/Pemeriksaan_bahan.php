@@ -56,15 +56,45 @@ class pemeriksaan_bahan extends CI_Controller
             header('location:' . base_url('gudang_bahanbaku/barang_masuk') . '?alert=danger&msg=Maaf anda gagal meng-update barang masuk');
         }
     }
-    public function delete($id_barang_masuk)
+    public function delete($id_pb)
     {
-        $data['id_barang_masuk'] = $id_barang_masuk;
+        $data['id_pb'] = $id_pb;
         $respon = $this->M_pemeriksaan_bahan->delete($data);
 
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_pw($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_pel($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_tp($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_csf($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_leca($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_sls($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_titan($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_nb($data);
+
+        $this->M_pemeriksaan_bahan->update_status_pb($data['id_pb'], "Karantina");
+        $respon = $this->M_pemeriksaan_bahan->delete_mepa($data);
+
         if ($respon) {
-            header('location:' . base_url('gudang_bahanbaku/barang_masuk') . '?alert=success&msg=Selamat anda berhasil menghapus barang masuk');
+            header('location:' . base_url('lab/pemeriksaan_bahan') . '?alert=success&msg=Selamat anda berhasil menghapus barang dari pengujian');
         } else {
-            header('location:' . base_url('gudang_bahanbaku/barang_masuk') . '?alert=danger&msg=Maaf anda gagal menghapus barang masuk');
+            header('location:' . base_url('lab/pemeriksaan_bahan') . '?alert=danger&msg=Maaf anda gagal menghapus barang dari pengujian');
         }
     }
     public function cek_surat_jalan()

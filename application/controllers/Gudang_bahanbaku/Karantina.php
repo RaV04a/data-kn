@@ -25,8 +25,49 @@ class Karantina extends CI_Controller
         $data['res_barang'] = $this->M_barang->get()->result_array();
         $data['res_supplier'] = $this->M_supplier->get()->result_array();
         $data['res_user'] = $this->M_users->get()->result_array();
-        $this->template->load('template', 'content/gudang_bahanbaku/karantina/karantina_data.php', $data);
+        $this->template->load('template', 'content/gudang_bahanbaku/karantina/karantina_data', $data);
         // print_r($data); 
+    }
+
+    public function update()
+    {
+        $data['id_pb'] = $this->input->post('id_pb', TRUE);
+        $data['no_batch'] = $this->input->post('no_batch', TRUE);
+        $data['no_surat_jalan'] = $this->input->post('no_surat_jalan', TRUE);
+        $data['tgl'] = $this->convertDate($this->input->post('tgl', TRUE));
+        $data['id_barang'] = $this->input->post('id_barang', TRUE);
+        $data['id_supplier'] = $this->input->post('id_supplier', TRUE);
+        $data['op_gudang'] = $this->input->post('op_gudang', TRUE);
+        $data['dok_pendukung'] = $this->input->post('dok_pendukung', TRUE);
+        $data['jenis_kemasan'] = $this->input->post('jenis_kemasan', TRUE);
+        $data['jml_kemasan'] = $this->input->post('diterima_kemasan', TRUE);
+        $data['ditolak_kemasan'] = $this->input->post('ditolak_kemasan', TRUE);
+        $data['tutup'] = $this->input->post('tutup', TRUE);
+        $data['wadah'] = $this->input->post('wadah', TRUE);
+        $data['label'] = $this->input->post('label', TRUE);
+        $data['qty'] = $this->input->post('diterima_bahan', TRUE);
+        $data['ditolak_qty'] = $this->input->post('ditolak_bahan', TRUE);
+        $data['exp'] = $this->convertDate($this->input->post('exp', TRUE));
+        $data['mfg'] = $this->convertDate($this->input->post('mfg', TRUE));
+        $respon = $this->M_karantina->update($data);
+        // echo $respon;
+        if ($respon) {
+            header('location:' . base_url('gudang_bahanbaku/karantina') . '?alert=success&msg=Selamat anda berhasil meng-update Barang Masuk');
+        } else {
+            header('location:' . base_url('gudang_bahanbaku/karantina') . '?alert=error&msg=Maaf anda gagal meng-update Barang Masuk');
+        }
+    }
+
+    public function delete($id_pb)
+    {
+        $data['id_pb'] = $id_pb;
+        $respon = $this->M_karantina->delete($data);
+
+        if ($respon) {
+            header('location:' . base_url('gudang_bahanbaku/karantina') . '?alert=success&msg=Selamat anda berhasil menghapus barang masuk');
+        } else {
+            header('location:' . base_url('gudang_bahanbaku/karantina') . '?alert=danger&msg=Maaf anda gagal menghapus barang masuk');
+        }
     }
 
     public function pdf_label_karantina($no_sj = null)

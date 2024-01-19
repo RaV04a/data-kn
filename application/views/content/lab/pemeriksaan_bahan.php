@@ -75,8 +75,26 @@
                                                                         <i class="feather icon-eye"></i>Details
                                                                     </button>
                                                                 </div>
-                                                            </td>
+                                                                </td>
+                                                    
+                                                                <?php if ($k['status'] === "Proses") { ?> 
+                                                                <td>
+                                                                    <center>
+                                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                                        <button type="button" class="btn btn-primary btn-square btn-sm" data-toggle="modal" data-target="#edit" data-id_pb="<?= $k['id_pb'] ?>" data-no_surat_jalan="<?= $k['no_surat_jalan'] ?>" data-no_batch="<?= $k['no_batch'] ?>" data-tgl="<?= $tgl_msk ?>" data-nama_barang="<?= $k['nama_barang'] ?>" data-nama_supplier="<?= $k['nama_supplier'] ?>" data-op_gudang="<?= $k['op_gudang'] ?>" data-dok_pendukung="<?= $k['dok_pendukung'] ?>" data-qty_pack="<?= $k['qty_pack'] ?>" data-jenis_kemasan="<?= $k['jenis_kemasan'] ?>" data-qty="<?= $k['qty'] ?>" data-jml_kemasan="<?= $k['jml_kemasan'] ?>" data-tutup="<?= $k['tutup'] ?>" data-wadah="<?= $k['wadah'] ?>" data-label="<?= $k['label'] ?>" data-ditolak_qty="<?= $k['ditolak_qty'] ?>" data-ditolak_kemasan="<?= $k['ditolak_kemasan'] ?>" data-exp="<?= $exp ?>" data-mfg="<?= $mfg ?>">
+                                                                            <i class="feather icon-edit-2"></i>Edit
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                                        <a href="<?= base_url() ?>/lab/pemeriksaan_bahan/delete/<?= $k['id_pb'] ?>" class="btn btn-danger btn-square text-light btn-sm" onclick="if (! confirm('Apakah Anda Yakin?')) { return false; }">
+                                                                        <i class="feather icon-trash-2"></i>Hapus
+                                                                        </a>
+                                                                    </div>
+                                                                    </center>
+                                                                    </td>
+                                                             <?php } ?>
                                                             <td class="text-right">
+                                                                <center>
                                                                 <?php if ($k['jenis_bahan'] === "Bahan Baku" && $k['status'] === "Karantina" || $k['jenis_bahan'] === "BAHAN BAKU" && $k['status'] === "Karantina") { ?>
                                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                                         <button type="button" class="btn btn-primary btn-square btn-sm" data-toggle="modal" data-target="#add_ujigel" data-id_pb="<?= $k['id_pb'] ?>" data-id_barang="<?= $k['id_barang'] ?>" data-id_supplier="<?= $k['id_supplier'] ?>" data-no_surat_jalan="<?= $k['no_surat_jalan'] ?>" data-no_batch="<?= $k['no_batch'] ?>" data-tgl="<?= $tgl_msk ?>" data-nama_barang="<?= $k['nama_barang'] ?>" data-nama_supplier="<?= $k['nama_supplier'] ?>" data-op_gudang="<?= $k['op_gudang'] ?>" data-dok_pendukung="<?= $k['dok_pendukung'] ?>" data-jenis_kemasan="<?= $k['jenis_kemasan'] ?>" data-jml_kemasan="<?= $k['jml_kemasan'] ?>" data-tutup="<?= $k['tutup'] ?>" data-wadah="<?= $k['wadah'] ?>" data-label="<?= $k['label'] ?>" data-qty="<?= $k['qty'] ?>" data-exp="<?= $exp ?>" data-mfg="<?= $mfg ?>">
@@ -125,7 +143,7 @@
                                                                 <?php }
 
                                                                 // Bahan Tambahan Lecithin Adlec
-                                                                if ($k['nama_barang'] === "Lecithin Adlec" && $k['status'] === "Karantina" || $k['jenis_bahan'] === "LECITHIN ADLEC" && $k['status'] === "Karantina") { ?>
+                                                                if ($k['nama_barang'] === "LECITHIN ADLEC" && $k['status'] === "Karantina" || $k['jenis_bahan'] === "LECITHIN ADLEC" && $k['status'] === "Karantina") { ?>
                                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                                         <button type="button" class="btn btn-primary btn-square btn-sm" data-toggle="modal" data-target="#add_ujila" data-id_pb="<?= $k['id_pb'] ?>" data-id_barang="<?= $k['id_barang'] ?>" data-id_supplier="<?= $k['id_supplier'] ?>" data-no_surat_jalan="<?= $k['no_surat_jalan'] ?>" data-no_batch="<?= $k['no_batch'] ?>" data-tgl="<?= $tgl_msk ?>" data-nama_barang="<?= $k['nama_barang'] ?>" data-nama_supplier="<?= $k['nama_supplier'] ?>" data-op_gudang="<?= $k['op_gudang'] ?>" data-dok_pendukung="<?= $k['dok_pendukung'] ?>" data-jenis_kemasan="<?= $k['jenis_kemasan'] ?>" data-jml_kemasan="<?= $k['jml_kemasan'] ?>" data-tutup="<?= $k['tutup'] ?>" data-wadah="<?= $k['wadah'] ?>" data-label="<?= $k['label'] ?>" data-qty="<?= $k['qty'] ?>" data-exp="<?= $exp ?>" data-mfg="<?= $mfg ?>">
                                                                             <i class="feather icon-edit-2"></i>Uji BT
@@ -143,7 +161,7 @@
                                                                 <?php }
 
                                                                 // Bahan Tambahan Sodium Launil Sulfat
-                                                                if ($k['nama_barang'] === "Sodium Launil Sulfat" && $k['status'] === "Karantina" || $k['jenis_bahan'] === "SODIUM LAUNIL SULFAT" && $k['status'] === "Karantina") { ?>
+                                                                if ($k['nama_barang'] === "SODIUM LAUNIL SULFAT" && $k['status'] === "Karantina" || $k['jenis_bahan'] === "SODIUM LAUNIL SULFAT" && $k['status'] === "Karantina") { ?>
                                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                                         <button type="button" class="btn btn-primary btn-square btn-sm" data-toggle="modal" data-target="#add_ujisls" data-id_pb="<?= $k['id_pb'] ?>" data-id_barang="<?= $k['id_barang'] ?>" data-id_supplier="<?= $k['id_supplier'] ?>" data-no_surat_jalan="<?= $k['no_surat_jalan'] ?>" data-no_batch="<?= $k['no_batch'] ?>" data-tgl="<?= $tgl_msk ?>" data-nama_barang="<?= $k['nama_barang'] ?>" data-nama_supplier="<?= $k['nama_supplier'] ?>" data-op_gudang="<?= $k['op_gudang'] ?>" data-dok_pendukung="<?= $k['dok_pendukung'] ?>" data-jenis_kemasan="<?= $k['jenis_kemasan'] ?>" data-jml_kemasan="<?= $k['jml_kemasan'] ?>" data-tutup="<?= $k['tutup'] ?>" data-wadah="<?= $k['wadah'] ?>" data-label="<?= $k['label'] ?>" data-qty="<?= $k['qty'] ?>" data-exp="<?= $exp ?>" data-mfg="<?= $mfg ?>">
                                                                             <i class="feather icon-edit-2"></i>Uji BT
@@ -152,7 +170,7 @@
                                                                 <?php }
 
                                                                 // Bahan Tambahan Titanium Dioxide
-                                                                if ($k['nama_barang'] === "Titanium Dioxide" && $k['status'] === "Karantina" || $k['jenis_bahan'] === "TITANIUM DIOXIDE" && $k['status'] === "Karantina") { ?>
+                                                                if ($k['nama_barang'] === "TITANIUM DIOXIDE" && $k['status'] === "Karantina" || $k['jenis_bahan'] === "TITANIUM DIOXIDE" && $k['status'] === "Karantina") { ?>
                                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                                         <button type="button" class="btn btn-primary btn-square btn-sm" data-toggle="modal" data-target="#add_ujitd" data-id_pb="<?= $k['id_pb'] ?>" data-id_barang="<?= $k['id_barang'] ?>" data-id_supplier="<?= $k['id_supplier'] ?>" data-no_surat_jalan="<?= $k['no_surat_jalan'] ?>" data-no_batch="<?= $k['no_batch'] ?>" data-tgl="<?= $tgl_msk ?>" data-nama_barang="<?= $k['nama_barang'] ?>" data-nama_supplier="<?= $k['nama_supplier'] ?>" data-op_gudang="<?= $k['op_gudang'] ?>" data-dok_pendukung="<?= $k['dok_pendukung'] ?>" data-jenis_kemasan="<?= $k['jenis_kemasan'] ?>" data-jml_kemasan="<?= $k['jml_kemasan'] ?>" data-tutup="<?= $k['tutup'] ?>" data-wadah="<?= $k['wadah'] ?>" data-label="<?= $k['label'] ?>" data-qty="<?= $k['qty'] ?>" data-exp="<?= $exp ?>" data-mfg="<?= $mfg ?>">
                                                                             <i class="feather icon-edit-2"></i>Uji BT
@@ -160,6 +178,7 @@
                                                                     </div>
                                                                 <?php } ?>
                                                             </td>
+                                                            </center>
                                                             </tr>
                                                         <?php } ?>
                                                 </tbody>
@@ -423,3 +442,4 @@ $this->view('content/lab/pemeriksaan_bahan_tambahan/titaniumdioxide');
         })
     })
 </script>
+

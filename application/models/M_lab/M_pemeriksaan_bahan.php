@@ -43,6 +43,164 @@ class M_pemeriksaan_bahan extends CI_Model
         return $this->db->query($sql);
     }
 
+    public function delete($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujigel`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function delete_pw($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujipewarna`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function delete_pel($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujipel`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function delete_tp($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujitp`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function delete_csf($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujibt_candurinsilverfine`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function delete_leca($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujibt_lecithinadlec`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+    public function delete_sls($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujibt_sodiumlaunilsulfat`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+    public function delete_titan($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujibt_titaniumdioxide`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function delete_nb($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujibt_natriumbenzoat`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function delete_mepa($data)
+    {
+        $id_user = $this->id_user();
+        // $sql = "
+        // UPDATE `tb_barang_masuk` 
+        // SET `is_deleted`='1',`updated_at`=NOW(),`updated_by`='$id_user' 
+        // WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        // ";
+
+        $sql = "
+        DELETE FROM `tb_hasil_ujibt_methylparaben`
+         WHERE `id_pb`='$data[id_pb]'
+        ";
+        return $this->db->query($sql);
+    }
+
     public function cek_karantina()
     {
         $sql = "

@@ -63,7 +63,7 @@
                               <td><?= $k['no_transfer_slip'] ?></td>
                               <td><?= $k['no_batch'] ?></td>
                               <td><?= $k['nama_barang'] ?></td>
-                              <td class="text-right"><?= number_format($k['qty'], 0, ",", ".") ?>
+                              <td class="text-right"><?= number_format($k['qty'], 0, ",", ".") ?></td>
                               <td class="text-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                   <button type="button" class="btn btn-info btn-square btn-sm" data-toggle="modal" data-target="#detail" data-id_barang="<?= $k['id_barang'] ?>" data-id_supplier="<?= $k['id_supplier'] ?>" data-id_barang_masuk="<?= $k['id_barang_masuk'] ?>"  data-no_batch="<?= $k['no_batch'] ?>" data-tgl="<?= $tgl ?>"   data-qty="<?= $k['qty'] ?>"  data-mfg="<?= $mfg ?>">

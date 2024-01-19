@@ -35,6 +35,8 @@ class Permintaan_barang_melting extends CI_Controller
         $this->template->load('template', 'content/melting/permintaan_barang_melting/permintaan_barang_melting_data', $data);
         // print_r($data['bm']);
     }
+   
+
     public function data_permintaan_barang()
     {
         $no_transfer_slip = $this->input->post('no_transfer_slip', TRUE);
@@ -97,6 +99,34 @@ class Permintaan_barang_melting extends CI_Controller
             header('location:' . base_url('melting/permintaan_barang_melting') . '?alert=error&msg=Maaf anda gagal menambah Permintaan Barang Melting');
         }
     }
+
+    public function disetujui()
+    {
+        $no_transfer_slip = $this->input->post('no_transfer_slip', TRUE);
+        $tgl_rilis = $this->convertDate($this->input->post('tgl_rilis', TRUE));
+        // $data['id_barang_masuk'] = $this->input->post('id_barang_masuk', TRUE);
+        // $data['qty'] = $this->input->post('qty', TRUE);
+        // var_dump($data);
+        // die;
+        $data = $this->M_permintaan_barang_gudang->data_permintaan_barang($no_transfer_slip)->result_array();
+        foreach ($data as $k => $value) {
+            $per_barang = array('id_barang_masuk' => $value['id_barang_masuk'], 'qty' => $value['qty']);
+            $this->M_barang_masuk->update_stok($per_barang);
+            $id_mm = $this->M_permintaan_barang_gudang->add_approv($data[$k], $tgl_rilis);
+            $id_barang_keluar = $this->M_permintaan_barang_gudang->add_approv2($data[$k], $tgl_rilis);
+            $this->M_transaksi_melting->trans_masuk(array('id_mm' => $id_mm, 'qty' => $value['qty']));
+        }
+        $this->M_permintaan_barang_gudang->disetujui($no_transfer_slip, $tgl_rilis);
+        $respon = $this->M_permintaan_barang_gudang->update_status_ts($no_transfer_slip, "DiSetujui");
+
+
+        if ($respon) {
+            header('location:' . base_url('melting/Permintaan_barang_melting') . '?alert=success&msg=Selamat anda berhasil Menyetujui Permintaan Barang Gudang');
+        } else {
+            header('location:' . base_url('melting/Permintaan_barang_melting') . '?alert=error&msg=Maaf anda gagal Menyetujui Permintaan Barang Gudang');
+        }
+    }
+
     public function update()
     {
         $data['id_permintaan_barang'] = $this->input->post('id_permintaan_barang', TRUE);

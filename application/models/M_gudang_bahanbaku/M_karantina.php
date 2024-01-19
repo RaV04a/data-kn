@@ -35,9 +35,9 @@ class M_karantina extends CI_Model
     {
         $id_user = $this->id_user();
         $sql = "
-            UPDATE `tb_barang_masuk` 
-            SET `no_batch`='$data[no_batch]',`no_surat_jalan`='$data[no_surat_jalan]',`tgl`='$data[tgl]',`nama_operator`='$data[nama_operator]',`dok_pendukung`='$data[dok_pendukung]',`jenis_kemasan`='$data[jenis_kemasan]',`jml_kemasan`='$data[jml_kemasan]',`tutup`='$data[tutup]',`wadah`='$data[wadah]',`label`='$data[label]',`qty`='$data[qty]',`exp`='$data[exp]',`mfg`='$data[mfg]',`updated_at`=NOW(),`updated_by`='$id_user' 
-            WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+            UPDATE `tb_pemeriksaan_bahan` 
+            SET `no_batch`='$data[no_batch]',`no_surat_jalan`='$data[no_surat_jalan]',`tgl`='$data[tgl]',`id_barang`='$data[id_barang]',`id_supplier`='$data[id_supplier]',`op_gudang`='$data[op_gudang]',`dok_pendukung`='$data[dok_pendukung]',`jenis_kemasan`='$data[jenis_kemasan]',`jml_kemasan`='$data[jml_kemasan]',`tutup`='$data[tutup]',`wadah`='$data[wadah]',`label`='$data[label]',`qty`='$data[qty]',`exp`='$data[exp]',`mfg`='$data[mfg]',`updated_at`=NOW(),`updated_by`='$id_user' 
+            WHERE `id_pb`='$data[id_pb]'
         ";
         return $this->db->query($sql);
         // return $sql;
@@ -54,8 +54,8 @@ class M_karantina extends CI_Model
         // ";
 
         $sql = "
-        DELETE FROM `tb_barang_masuk`
-         WHERE `id_barang_masuk`='$data[id_barang_masuk]'
+        DELETE FROM `tb_pemeriksaan_bahan`
+         WHERE `id_pb`='$data[id_pb]'
         ";
         return $this->db->query($sql);
     }
